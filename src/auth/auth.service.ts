@@ -12,6 +12,6 @@ export class AuthService {
   ) {}
 
   async createUser(user: CreateUserDto) {
-    return await this.authRepository.createUser(user);
+    return await this.authRepository.createUsers(user);
   }
 }
