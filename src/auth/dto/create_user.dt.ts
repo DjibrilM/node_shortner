@@ -8,7 +8,4 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsStrongPassword()
   password: string;
-
-  @IsNotEmpty()
-  profile: string;
 }

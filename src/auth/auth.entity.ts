@@ -11,8 +11,8 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 
 @Entity()
-@Unique(['email'])
-export class User extends BaseEntity {
+@Unique(['email']) // Ensure email field is unique
+export class Users extends BaseEntity {
   @BeforeInsert()
   genarate() {
     this.id = uuidv4();
@@ -20,7 +20,7 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, name: 'email' })
   email: string;
 
   @Column()

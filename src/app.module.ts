@@ -9,7 +9,7 @@ import { DataSource } from 'typeorm';
 config();
 
 @Module({
-  imports: [TypeOrmModule.forRoot({ ...typeOrmCOnfig }), AuthModule],
+  imports: [TypeOrmModule.forRoot(typeOrmCOnfig), AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
