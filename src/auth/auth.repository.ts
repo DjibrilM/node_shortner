@@ -32,14 +32,17 @@ export class AuthRepository extends Repository<Users> {
       const saveUsers: any = await user.save();
       delete saveUsers.password;
       const auth_token = jsonwebtoken.sign(
-        {...saveUsers},
+        { ...saveUsers },
         process.env.JSON_WEBTOKEN_SECRET,
+        {
+          expiresIn:'2d'
+        }
       );
       saveUsers.auth_token = auth_token;
 
       return saveUsers;
     } catch (error) {
-      if (+error.code === uniqueDatabaseConflictErrorCode) {
+      if (Number(error.code) === uniqueDatabaseConflictErrorCode) {
         logger.fatal(
           createLoggerMessage({
             error: error,
@@ -58,6 +61,14 @@ export class AuthRepository extends Repository<Users> {
       }
     }
   }
+
+  async findOneUser(email:string) {
+    return await Users.findOne({where:{email:email}})
+  }
+
+  deleteUser() {}
+
+  updateUser() {}
 
   async createHash(string: string) {
     const salt = await bcrypt.genSalt();

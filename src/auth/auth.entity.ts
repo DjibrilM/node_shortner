@@ -8,7 +8,10 @@ import {
   Entity,
   BeforeInsert,
 } from 'typeorm';
+
+import * as bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
+
 
 @Entity()
 @Unique(['email']) // Ensure email field is unique
@@ -34,4 +37,9 @@ export class Users extends BaseEntity {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  async comparePassword(password:string){
+    return await bcrypt.compare(password,this.password);
+  }
 }
+
