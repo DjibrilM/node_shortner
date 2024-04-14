@@ -1,3 +1,4 @@
+import puppeteer, { Page } from 'puppeteer';
 import { config } from 'dotenv';
 import { Logger } from '@nestjs/common';
 config();

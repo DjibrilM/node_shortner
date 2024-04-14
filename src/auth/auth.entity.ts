@@ -7,11 +7,12 @@ import {
   PrimaryGeneratedColumn,
   Entity,
   BeforeInsert,
+  OneToMany,
 } from 'typeorm';
 
 import * as bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
-
+import { Url } from 'src/urls/url.entity';
 
 @Entity()
 @Unique(['email']) // Ensure email field is unique
@@ -38,8 +39,10 @@ export class Users extends BaseEntity {
   @UpdateDateColumn()
   updated_at: Date;
 
-  async comparePassword(password:string){
-    return await bcrypt.compare(password,this.password);
+  @OneToMany(() => Url, (urlEntity) => urlEntity.owner,{nullable:true})
+  urls: Url[];
+
+  async comparePassword(password: string) {
+    return await bcrypt.compare(password, this.password);
   }
 }
-

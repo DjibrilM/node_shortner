@@ -2,8 +2,6 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { config } from 'dotenv';
 config();
 
-import { Users } from 'src/auth/auth.entity';
-
 export const typeOrmCOnfig: TypeOrmModuleOptions = {
   retryDelay: 4000,
   autoLoadEntities: true,
@@ -12,6 +10,6 @@ export const typeOrmCOnfig: TypeOrmModuleOptions = {
   host: process.env.DATABASE_HOST,
   password: process.env.DATABASE_PASSWORD,
   username: process.env.DATABASE_USER_NAME,
-  entities: [],
+  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   synchronize: true,
 };

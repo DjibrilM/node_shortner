@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -7,16 +9,13 @@ import { typeOrmCOnfig } from './config/typeorm.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from './auth/auth.strategy';
-
+import { UrlsModule } from './urls/urls.module';
 config();
+
 
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
     TypeOrmModule.forRoot(typeOrmCOnfig),
-    AuthModule,
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET,
@@ -24,10 +23,13 @@ config();
         expiresIn: '3d',
       },
     }),
+
+    AuthModule,
+    UrlsModule,
   ],
+
   controllers: [AppController],
-  providers: [AppService, JwtStrategy],
-  exports:[JwtStrategy,PassportModule]
+  providers: [AppService],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}

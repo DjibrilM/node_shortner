@@ -1,16 +1,17 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Req, Res } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Response } from 'express';
-import { Res } from '@nestjs/common';
+import { Request, Response } from 'express';
+import { createPreRenderedHmtlPage } from './util/preRenderedHmtlRespinse';
+const requestIp = require('request-ip');
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private appService: AppService) {}
 
-  @Get()
-  getHello(@Res() response: Response) {
-    return response.redirect(
-      'https://docs.nestjs.com/techniques/configuration',
-    );
+  @Get(':titile/:identifier')
+  async Redirect(@Req() request: Request, @Res() response: Response) {
+    return this.appService.createStrike(request, response);
   }
 }
+
+//   //  window.location.href = 'https://www.youtube.com/watch?v=LDMY7qtOPiI';

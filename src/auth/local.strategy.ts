@@ -15,15 +15,18 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private authRepository: AuthRepository,
   ) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ignoreExpiration: false,
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken([(req)=> {
+        console.log(req, 'body from strategy')
+      }]),
       secretOrKey: process.env.JWT_SECRET,
     });
   }
 
   async validate(payload: CreateUserDto) {
-    const user = this.authRepository.findOneUser(payload.email);
+    const user = await this.authRepository.findOneUser(payload.email);
+    console.log(user);
     if (!user) {
-        
       logger.warn({
         message: 'one user provided a false jw token',
         tokenPayload: payload,
