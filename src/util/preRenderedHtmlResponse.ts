@@ -1,6 +1,6 @@
 import { Meta } from '../util/shared/interfaces';
 
-export const createPreRenderedHmtlPage = (metatags: Meta[], title: string) => {
+export const createPreRenderedHtmlPage = (metatags: Meta[], title: string) => {
   const page = 
 `
 <!DOCTYPE html>
