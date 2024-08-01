@@ -11,8 +11,6 @@ export class StrikeRepository extends Repository<Strike> {
   async createStrike(url: Url, visitorIpAddress: string) {
     const visiotorInformation = await getVisitorInfo(visitorIpAddress); //contain thing link visitor's region,country, and all the geographical informations
 
-    console.log(visiotorInformation);
-
     const newstrike = new Strike();
     newstrike.city = visiotorInformation.city;
     newstrike.country = visiotorInformation.country;
