@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { StrikeRepository } from './urls/strike.repository';
 import { Request, Response } from 'express';
 const requestIp = require('request-ip');
-import { createPreRenderedHtmlPage } from './util/preRenderedHmtlRespinse';
+import { createPreRenderedHtmlPage } from './util/preRenderedHtmlResponse.ts';
 
 @Injectable()
 export class AppService {
