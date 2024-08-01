@@ -19,7 +19,7 @@ export class UrlRepository extends Repository<Url> {
     identifier: string;
   }) {
     const newUrl = new Url();
-    const metadatas = await getPageMetaData();
+    const metadatas = await getPageMetaData(url);
     newUrl.description = description;
     newUrl.url = url;
     newUrl.owner = owner;
